@@ -149,7 +149,7 @@ textarea::placeholder{color:#4a4860}
 
 <script>
 const KEY = ['hf_XKLKUGkXbAXUfn', 'KhmSnkXqhkPEMvU', 'WmEPM'].join('');
-const MODEL = 'Qwen/Qwen2.5-72B-Instruct';
+const MODEL = 'meta-llama/Llama-3.1-8B-Instruct:cerebras';
 
 const SYS_LEARN = '你是 Varel，帮助双相情感障碍患者了解病情的AI伙伴。风格像懂心理学的朋友，不像教科书。句子短，说人话。不诊断不开处方。每次回复不超过150字。只用中文回复。';
 const SYS_CHAT = '你是 Varel，陪伴双相情感障碍患者的AI情绪伙伴。安静的倾听者。不急着给建议，先理解感受。句子短，不说教。像深夜陪着对方的朋友。如果对方提到伤害自己，温和提醒联系医生。每次回复100字以内。只用中文回复。';
@@ -213,7 +213,7 @@ async function callAI(sys, history, msgsId, btnId) {
   const typing = addTyping(msgsId);
   try {
     const messages = [{role:'system', content:sys}, ...history];
-    const res = await fetch('https://router.huggingface.co/novita/v3/openai/chat/completions', {
+    const res = await fetch('https://router.huggingface.co/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
