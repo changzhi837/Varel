@@ -1,60 +1,39 @@
 <!DOCTYPE html>
-
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Varel · 你的情绪伙伴</title>
+<title>Varel</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #FAF6F0;
-  --bg-deep: #F3EDE4;
-  --bg-card: #FFFCF7;
-  --border: rgba(160,140,110,0.15);
-  --border-focus: rgba(160,140,110,0.35);
-  --text: #3D3529;
-  --text-soft: #8A7E6E;
-  --text-muted: #B5AA98;
-  --accent: #C4956A;
-  --accent-light: #E8CDB0;
-  --accent-glow: rgba(196,149,106,0.2);
-  --green-soft: #A8B89C;
-  --rose-soft: #D4A9A0;
-  --blue-soft: #A0B8C4;
-  --lavender: #B8A9C4;
-}
+:root{--bg:#FAF6F0;--bg-deep:#F3EDE4;--bg-card:#FFFCF7;--border:rgba(160,140,110,0.15);--border-focus:rgba(160,140,110,0.35);--text:#3D3529;--text-soft:#8A7E6E;--text-muted:#B5AA98;--accent:#C4956A;--accent-glow:rgba(196,149,106,0.2);--green-soft:#A8B89C;--rose-soft:#D4A9A0;--blue-soft:#A0B8C4;--lavender:#B8A9C4}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
-.app{max-width:640px;margin:0 auto;height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
-.app::before{content:'';position:fixed;inset:0;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:999}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif}
+.app{max-width:640px;margin:0 auto;height:100vh;display:flex;flex-direction:column;overflow:hidden}
 header{padding:16px 20px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .logo{display:flex;align-items:center;gap:8px}
 .logo-icon{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--rose-soft));display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;box-shadow:0 2px 12px var(--accent-glow)}
-.logo-text{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--accent);letter-spacing:-0.02em}
+.logo-text{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--accent)}
 .header-right{display:flex;gap:6px;align-items:center}
-#langBtn{background:var(--bg-card);border:1px solid var(--border);color:var(--accent);border-radius:10px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:500;transition:all 0.2s}
-#langBtn:active{transform:scale(0.95)}
+#langBtn{background:var(--bg-card);border:1px solid var(--border);color:var(--accent);border-radius:10px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:500}
 .tabs{display:flex;gap:2px;background:var(--bg-deep);border-radius:12px;padding:3px;border:1px solid var(--border)}
-.tab{padding:5px 14px;border-radius:10px;font-size:12px;cursor:pointer;color:var(--text-soft);background:none;border:none;font-family:inherit;font-weight:400;transition:all 0.2s}
+.tab{padding:5px 14px;border-radius:10px;font-size:12px;cursor:pointer;color:var(--text-soft);background:none;border:none;font-family:inherit;transition:all 0.2s}
 .tab.active{background:var(--bg-card);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,0.04)}
 .panel{display:none;flex:1;flex-direction:column;min-height:0}
 .panel.active{display:flex}
 .topics{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
-.topics h2{text-align:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin-top:8px;color:var(--text);letter-spacing:-0.01em}
+.topics h2{text-align:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin-top:8px}
 .topics>p{text-align:center;color:var(--text-soft);font-size:13px;line-height:1.8;font-weight:300;margin-top:2px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;position:relative;overflow:hidden;transition:transform 0.15s,box-shadow 0.2s}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;position:relative;overflow:hidden;transition:transform 0.15s}
 .card:active{transform:scale(0.97)}
-.card:hover{box-shadow:0 4px 16px rgba(160,140,110,0.1)}
-.card-bar{position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:0 0 2px 2px}
+.card-bar{position:absolute;top:0;left:0;right:0;height:2.5px}
 .card-icon{font-size:20px;margin-bottom:8px}
-.card-title{font-size:12.5px;line-height:1.55;color:var(--text);font-weight:400}
+.card-title{font-size:12.5px;line-height:1.55}
 .card-desc{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.4;font-weight:300}
 .learn-chat{flex:1;display:none;flex-direction:column;min-height:0;padding:12px 20px 0}
 .learn-chat.active{display:flex}
-.back{background:none;border:none;color:var(--text-soft);font-size:12px;cursor:pointer;padding:2px 0 10px;font-family:inherit;text-align:left;transition:color 0.15s}
-.back:hover{color:var(--accent)}
+.back{background:none;border:none;color:var(--text-soft);font-size:12px;cursor:pointer;padding:2px 0 10px;font-family:inherit;text-align:left}
 .chat-head{padding:16px 20px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
 .chat-head h3{font-size:14px;color:var(--text-soft);font-weight:400}
 .chat-head p{font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:300}
@@ -66,22 +45,21 @@ header{padding:16px 20px 0;display:flex;align-items:center;justify-content:space
 .av.ai{background:linear-gradient(135deg,var(--accent),var(--rose-soft));color:#fff;font-size:12px;box-shadow:0 2px 8px var(--accent-glow)}
 .av.user{background:var(--bg-deep);border:1px solid var(--border);color:var(--text-soft);font-size:10px}
 .bub{max-width:80%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.8;font-weight:300;white-space:pre-wrap}
-.msg.ai .bub{background:var(--bg-card);border:1px solid var(--border);border-top-left-radius:4px;color:var(--text)}
-.msg.user .bub{background:linear-gradient(135deg,#E8D5C0,#E2CCAE);border:1px solid rgba(196,149,106,0.2);border-top-right-radius:4px;color:var(--text)}
+.msg.ai .bub{background:var(--bg-card);border:1px solid var(--border);border-top-left-radius:4px}
+.msg.user .bub{background:linear-gradient(135deg,#E8D5C0,#E2CCAE);border:1px solid rgba(196,149,106,0.2);border-top-right-radius:4px}
 .typing{display:flex;gap:5px;align-items:center;padding:4px 0}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0.4;animation:blink 1.2s ease-in-out infinite}
 .dot:nth-child(2){animation-delay:0.2s}
 .dot:nth-child(3){animation-delay:0.4s}
 @keyframes blink{0%,80%,100%{opacity:0.3;transform:scale(1)}40%{opacity:1;transform:scale(1.3)}}
 .input-area{padding:10px 20px 20px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end;flex-shrink:0;background:var(--bg)}
-.input-wrap{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:9px 14px;transition:border-color 0.2s}
+.input-wrap{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:9px 14px}
 .input-wrap:focus-within{border-color:var(--border-focus)}
 textarea{width:100%;background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:14px;font-weight:300;resize:none;line-height:1.6;max-height:100px;min-height:20px}
 textarea::placeholder{color:var(--text-muted)}
-.send{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--rose-soft));border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px var(--accent-glow);transition:opacity 0.2s,transform 0.15s}
-.send:active{transform:scale(0.92)}
+.send{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--rose-soft));border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px var(--accent-glow);transition:opacity 0.2s}
 .send:disabled{opacity:0.35;cursor:not-allowed}
-.note{text-align:center;font-size:11px;color:var(--text-muted);padding:0 20px 6px;line-height:1.6}
+.note{text-align:center;font-size:11px;color:var(--text-muted);padding:0 20px 6px}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:rgba(160,140,110,0.15);border-radius:2px}
 </style>
@@ -165,101 +143,24 @@ textarea::placeholder{color:var(--text-muted)}
 <script>
 const KEY=['hf_XKLKUGkXbAXUfn','KhmSnkXqhkPEMvU','WmEPM'].join('');
 const MODEL='meta-llama/Llama-3.1-8B-Instruct:cerebras';
-
-/* ── 是否使用模拟回复（预览用，部署时改为 false） ── */
-const USE_MOCK = true;
-
-const SYS_LEARN=(lang)=>lang===‘id’?‘Kamu adalah Varel, teman AI yang membantu penderita gangguan bipolar memahami kondisi mereka. Gaya bicara seperti teman yang paham psikologi, bukan buku teks. Kalimat pendek, mudah dipahami. Tidak mendiagnosis atau meresepkan obat. Balas maksimal 150 kata. Hanya gunakan Bahasa Indonesia.’:‘你是 Varel，帮助双相情感障碍患者了解病情的AI伙伴。风格像懂心理学的朋友，不像教科书。句子短，说人话。不诊断不开处方。每次回复不超过150字。只用中文回复。’;
-const SYS_CHAT=(lang)=>lang===‘id’?‘Kamu adalah Varel, teman AI yang menemani penderita gangguan bipolar. Pendengar yang tenang. Tidak buru-buru memberi saran, pahami perasaan dulu. Kalimat pendek, tidak menggurui. Seperti teman yang menemani di malam hari. Jika mereka menyebut menyakiti diri sendiri, ingatkan dengan lembut untuk hubungi dokter. Balas maksimal 100 kata. Hanya gunakan Bahasa Indonesia.’:‘你是 Varel，陪伴双相情感障碍患者的AI情绪伙伴。安静的倾听者。不急着给建议，先理解感受。句子短，不说教。像深夜陪着对方的朋友。如果对方提到伤害自己，温和提醒联系医生。每次回复100字以内。只用中文回复。’;
-
-const TOPICS={zh:{symptoms:‘我想了解双相情感障碍的症状，为什么情绪会这么极端？和普通情绪波动有什么区别？’,relationships:‘双相如何影响亲密关系？为什么患者总觉得被抛弃，或者觉得对方在指责自己？’,treatment:‘吃药治疗双相真的有用吗？需要多久才能好一点？需要一直吃吗？’,daily:‘双相患者日常可以做什么稳定情绪？有什么真的有用的小事？’},id:{symptoms:‘Saya ingin tahu tentang gejala gangguan bipolar. Kenapa emosi bisa seekstrem itu? Apa bedanya dengan naik-turun mood biasa?’,relationships:‘Bagaimana bipolar mempengaruhi hubungan asmara? Kenapa penderitanya sering merasa ditinggalkan atau merasa dikritik?’,treatment:‘Apakah minum obat untuk bipolar benar-benar membantu? Berapa lama sampai terasa membaik? Harus minum selamanya?’,daily:‘Apa yang bisa dilakukan penderita bipolar sehari-hari untuk menstabilkan mood? Ada hal kecil yang benar-benar membantu?’}};
-
-/* ── 模拟回复数据 ── */
-const MOCK = {
-zh: {
-symptoms: ‘双相的情绪波动和普通心情不一样。\n\n躁狂的时候，你可能觉得自己无所不能，精力爆棚，不需要睡觉，花钱大手大脚，说话特别快。\n\n抑郁的时候，又像掉进了黑洞，什么都不想做，觉得活着没意思。\n\n普通的情绪波动通常有原因，持续时间短。双相的发作可以持续几天甚至几周，而且严重影响日常生活。\n\n如果你发现自己的情绪像坐过山车一样剧烈，建议和专业医生聊聊。’,
-relationships: ‘双相确实会给亲密关系带来挑战。\n\n躁狂期可能会冲动、易怒，说出伤人的话。抑郁期又会退缩，觉得自己不值得被爱，害怕被抛弃。\n\n这不是你的错。大脑的化学物质在作怪。\n\n重要的是：让你在乎的人了解你的状况，一起学习应对方法。沟通不需要完美，真诚就够了。\n\n稳定期多建立信任，发作期互相给空间。’,
-treatment: ‘药物治疗对很多双相患者确实有帮助。\n\n常见的药包括情绪稳定剂（比如锂盐、丙戊酸）和一些抗精神病药。效果一般需要2-4周才能慢慢显现。\n\n很多人需要长期服药来预防复发，但具体方案因人而异。\n\n吃药不代表软弱，就像糖尿病患者需要胰岛素一样。重要的是定期复诊，和医生保持沟通，不要自己停药。’,
-daily: ‘一些真的有用的小事：\n\n保持规律作息，尽量每天同一时间睡觉和起床。睡眠对情绪影响巨大。\n\n每天动一动，哪怕只是散步20分钟。运动能帮助大脑分泌让你感觉好一点的物质。\n\n记情绪日记，每天花一分钟记录心情。慢慢你会发现情绪的规律。\n\n减少酒精和咖啡因。它们看起来能帮忙，但其实会让情绪更不稳定。’,
-fallback: ‘我理解你的感受。能多跟我说说吗？不用着急，慢慢来。’,
-},
-id: {
-symptoms: ‘Mood swing di bipolar itu beda sama naik-turun emosi biasa.\n\nWaktu manik, kamu bisa merasa luar biasa kuat, nggak butuh tidur, ngomong cepat banget, dan bikin keputusan impulsif.\n\nWaktu depresi, rasanya kayak tenggelam. Nggak mau ngapa-ngapain, merasa hidup nggak ada artinya.\n\nBedanya sama mood biasa: episode bipolar bisa berlangsung berhari-hari sampai berminggu-minggu, dan sangat mengganggu kehidupan sehari-hari.\n\nKalau kamu merasa emosimu naik-turun ekstrem, coba ngobrol sama profesional ya.’,
-relationships: ‘Bipolar memang bisa bikin hubungan jadi challenging.\n\nPas manik, kamu mungkin impulsif, gampang marah, ngomong kasar. Pas depresi, kamu menarik diri, merasa nggak layak dicintai.\n\nIni bukan salahmu. Ini otak yang lagi nggak seimbang.\n\nYang penting: ajak orang terdekatmu untuk sama-sama belajar tentang kondisimu. Komunikasi nggak harus sempurna, yang penting jujur.\n\nBangun kepercayaan di masa stabil, saling kasih ruang di masa episode.’,
-treatment: ‘Obat bisa sangat membantu banyak penderita bipolar.\n\nYang umum dipakai: mood stabilizer (seperti lithium, valproate) dan beberapa antipsikotik. Efeknya biasanya mulai terasa dalam 2-4 minggu.\n\nBanyak orang perlu minum obat jangka panjang untuk mencegah kambuh, tapi setiap orang beda.\n\nMinum obat bukan berarti lemah. Sama kayak penderita diabetes butuh insulin. Yang penting: rutin kontrol, jangan berhenti obat sendiri.’,
-daily: ‘Beberapa hal kecil yang beneran bantu:\n\nJaga jadwal tidur yang teratur. Tidur dan bangun di jam yang sama setiap hari. Tidur itu pengaruh besar ke mood.\n\nGerak badan tiap hari, jalan kaki 20 menit aja udah cukup. Olahraga bantu otak produksi zat yang bikin perasaan lebih baik.\n\nCatat mood harian. Cuma butuh semenit. Lama-lama kamu bisa lihat polanya.\n\nKurangi alkohol dan kafein. Kelihatannya bantu, tapi sebenarnya bikin mood makin nggak stabil.’,
-fallback: ‘Aku dengerin kamu. Mau cerita lebih lanjut? Pelan-pelan aja, nggak usah buru-buru.’,
-}
-};
-
-const UI={zh:{langBtn:‘ID’,tabLearn:‘了解双相’,tabChat:‘倾诉’,topicTitle:‘认识你的状态’,topicDesc:‘双相情感障碍有很多面。<br>选一个话题，我们慢慢聊。’,cardTitles:[‘我的情绪为什么这么极端？’,‘为什么我总觉得被抛弃？’,‘吃药真的有用吗？’,‘今天状态不好怎么办？’],cardDescs:[‘了解躁狂与抑郁的表现’,‘双相如何影响亲密关系’,‘治疗的过程是什么样的’,‘日常小事帮助稳定情绪’],chatTitle:‘今天怎么了？’,chatDescText:‘这里没有评判，你可以说任何感受。’,learnPlaceholder:‘继续问我…’,chatPlaceholder:‘说说你现在的感受…’,backBtn:‘← 返回话题’,noteText:‘Varel 不是医生，无法替代专业治疗。’,welcome:‘嗨，我是 Varel。\n\n不管你现在是平静、烦躁、还是说不清楚的感觉——都可以跟我说说。我在听。’,userAvatar:‘你’},id:{langBtn:‘中文’,tabLearn:‘Kenali Bipolar’,tabChat:‘Curhat’,topicTitle:‘Kenali Kondisimu’,topicDesc:‘Gangguan bipolar punya banyak sisi.<br>Pilih topik, kita ngobrol pelan-pelan.’,cardTitles:[‘Kenapa emoiku bisa seekstrem ini?’,‘Kenapa aku selalu merasa ditinggalkan?’,‘Apakah minum obat benar-benar membantu?’,‘Gimana kalau hari ini lagi nggak baik?’],cardDescs:[‘Kenali gejala manik dan depresi’,‘Bagaimana bipolar mempengaruhi hubungan’,‘Seperti apa proses pengobatannya’,‘Hal kecil yang membantu stabilkan mood’],chatTitle:‘Gimana hari ini?’,chatDescText:‘Nggak ada yang dihakimi, cerita aja.’,learnPlaceholder:‘Tanya lagi…’,chatPlaceholder:‘Ceritain perasaanmu…’,backBtn:‘← Kembali ke topik’,noteText:‘Varel bukan dokter dan tidak menggantikan penanganan profesional.’,welcome:‘Hai, aku Varel.\n\nApapun yang kamu rasakan sekarang — tenang, gelisah, atau nggak bisa dijelaskan — cerita aja. Aku dengerin.’,userAvatar:‘Aku’}};
-
-let learnH=[],chatH=[],LANG=‘zh’,currentTopic=’’;
-
-function applyLang(){const s=UI[LANG];document.getElementById(‘langBtn’).textContent=s.langBtn;document.getElementById(‘tabLearn’).textContent=s.tabLearn;document.getElementById(‘tabChat’).textContent=s.tabChat;document.getElementById(‘topicTitle’).textContent=s.topicTitle;document.getElementById(‘topicDesc’).innerHTML=s.topicDesc;document.getElementById(‘chatTitle’).textContent=s.chatTitle;document.getElementById(‘chatDesc’).textContent=s.chatDescText;document.getElementById(‘learnInput’).placeholder=s.learnPlaceholder;document.getElementById(‘chatInput’).placeholder=s.chatPlaceholder;document.getElementById(‘backBtn’).textContent=s.backBtn;document.getElementById(‘noteText’).textContent=s.noteText;for(let i=1;i<=4;i++){document.getElementById(‘card-t’+i).textContent=s.cardTitles[i-1];document.getElementById(‘card-d’+i).textContent=s.cardDescs[i-1]}}
-
-function toggleLang(){LANG=LANG===‘zh’?‘id’:‘zh’;applyLang();learnH=[];chatH=[];document.getElementById(‘learnMsgs’).innerHTML=’’;document.getElementById(‘chatMsgs’).innerHTML=’’;backToTopics();addMsg(‘chatMsgs’,‘ai’,UI[LANG].welcome)}
-
-window.onload=()=>{applyLang();addMsg(‘chatMsgs’,‘ai’,UI[LANG].welcome)};
-
-function showTab(t){document.querySelectorAll(’.tab’).forEach((b,i)=>b.classList.toggle(‘active’,(i===0&&t===‘learn’)||(i===1&&t===‘chat’)));document.getElementById(‘learnPanel’).classList.toggle(‘active’,t===‘learn’);document.getElementById(‘chatPanel’).classList.toggle(‘active’,t===‘chat’)}
-
-function openTopic(id){learnH=[];currentTopic=id;document.getElementById(‘topicList’).style.display=‘none’;document.getElementById(‘learnChat’).classList.add(‘active’);document.getElementById(‘learnMsgs’).innerHTML=’’;const prompt=TOPICS[LANG][id];learnH.push({role:‘user’,content:prompt});callAI(SYS_LEARN(LANG),learnH,‘learnMsgs’,‘learnSend’,id)}
-
-function backToTopics(){document.getElementById(‘topicList’).style.display=’’;document.getElementById(‘learnChat’).classList.remove(‘active’)}
-
-function sendLearn(){const el=document.getElementById(‘learnInput’);const t=el.value.trim();if(!t)return;el.value=’’;resize(el);addMsg(‘learnMsgs’,‘user’,t);learnH.push({role:‘user’,content:t});callAI(SYS_LEARN(LANG),learnH,‘learnMsgs’,‘learnSend’,null)}
-
-function sendChat(){const el=document.getElementById(‘chatInput’);const t=el.value.trim();if(!t)return;el.value=’’;resize(el);addMsg(‘chatMsgs’,‘user’,t);chatH.push({role:‘user’,content:t});callAI(SYS_CHAT(LANG),chatH,‘chatMsgs’,‘chatSend’,null)}
-
-async function callAI(sys,history,msgsId,btnId,topicId){
-document.getElementById(btnId).disabled=true;
-const typing=addTyping(msgsId);
-const fallbackText=LANG===‘id’?‘Maaf, aku lagi gangguan. Coba lagi nanti ya?’:‘我现在有点接收不到，稍后再试试？’;
-
-if(USE_MOCK){
-// 模拟延迟，让体验更真实
-await new Promise(r=>setTimeout(r,800+Math.random()*600));
-typing.remove();
-let reply;
-if(topicId && MOCK[LANG][topicId]){
-reply=MOCK[LANG][topicId];
-} else {
-reply=MOCK[LANG].fallback;
-}
-addMsg(msgsId,‘ai’,reply);
-history.push({role:‘assistant’,content:reply});
-document.getElementById(btnId).disabled=false;
-return;
-}
-
-// 真实 API 调用（部署到 Vercel 时用）
-try{
-const messages=[{role:‘system’,content:sys},…history];
-const res=await fetch(‘https://router.huggingface.co/v1/chat/completions’,{
-method:‘POST’,
-headers:{‘Content-Type’:‘application/json’,‘Authorization’:‘Bearer ‘+KEY},
-body:JSON.stringify({model:MODEL,messages,max_tokens:512})
-});
-const data=await res.json();
-typing.remove();
-const reply=data.choices?.[0]?.message?.content||data.error?.message||fallbackText;
-addMsg(msgsId,‘ai’,reply);
-history.push({role:‘assistant’,content:reply});
-}catch(e){
-typing.remove();
-addMsg(msgsId,‘ai’,fallbackText+’\n(’+e.message+’)’);
-}
-document.getElementById(btnId).disabled=false;
-}
-
-function addMsg(id,role,text){const c=document.getElementById(id);const d=document.createElement(‘div’);d.className=’msg ’+role;const avLabel=role===‘ai’?‘✦’:UI[LANG].userAvatar;d.innerHTML=`<div class="av ${role}">${avLabel}</div><div class="bub">${text.replace(/\n/g,'<br>')}</div>`;c.appendChild(d);c.scrollTop=c.scrollHeight}
-
-function addTyping(id){const c=document.getElementById(id);const d=document.createElement(‘div’);d.className=‘msg ai’;d.innerHTML=’<div class="av ai">✦</div><div class="bub"><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>’;c.appendChild(d);c.scrollTop=c.scrollHeight;return d}
-
-function onKey(e,mode){if(e.key===‘Enter’&&!e.shiftKey){e.preventDefault();mode===‘learn’?sendLearn():sendChat()}}
-function resize(el){el.style.height=‘auto’;el.style.height=Math.min(el.scrollHeight,100)+‘px’}
+const SYS_LEARN=(l)=>l==='id'?'Kamu adalah Varel, teman AI yang membantu penderita gangguan bipolar memahami kondisi mereka. Gaya bicara seperti teman yang paham psikologi, bukan buku teks. Kalimat pendek, mudah dipahami. Tidak mendiagnosis atau meresepkan obat. Balas maksimal 150 kata. Hanya gunakan Bahasa Indonesia.':'你是 Varel，帮助双相情感障碍患者了解病情的AI伙伴。风格像懂心理学的朋友，不像教科书。句子短，说人话。不诊断不开处方。每次回复不超过150字。只用中文回复。';
+const SYS_CHAT=(l)=>l==='id'?'Kamu adalah Varel, teman AI yang menemani penderita gangguan bipolar. Pendengar yang tenang. Tidak buru-buru memberi saran, pahami perasaan dulu. Kalimat pendek, tidak menggurui. Seperti teman yang menemani di malam hari. Jika mereka menyebut menyakiti diri sendiri, ingatkan dengan lembut untuk hubungi dokter. Balas maksimal 100 kata. Hanya gunakan Bahasa Indonesia.':'你是 Varel，陪伴双相情感障碍患者的AI情绪伙伴。安静的倾听者。不急着给建议，先理解感受。句子短，不说教。像深夜陪着对方的朋友。如果对方提到伤害自己，温和提醒联系医生。每次回复100字以内。只用中文回复。';
+const TOPICS={zh:{symptoms:'我想了解双相情感障碍的症状，为什么情绪会这么极端？',relationships:'双相如何影响亲密关系？为什么总觉得被抛弃？',treatment:'吃药治疗双相真的有用吗？需要一直吃吗？',daily:'双相患者日常可以做什么稳定情绪？'},id:{symptoms:'Kenapa emosi bisa seekstrem itu? Apa bedanya dengan mood biasa?',relationships:'Bagaimana bipolar mempengaruhi hubungan? Kenapa sering merasa ditinggalkan?',treatment:'Apakah minum obat benar-benar membantu? Harus selamanya?',daily:'Apa yang bisa dilakukan sehari-hari untuk stabilkan mood?'}};
+const UI={zh:{langBtn:'ID',tabLearn:'了解双相',tabChat:'倾诉',topicTitle:'认识你的状态',topicDesc:'双相情感障碍有很多面。<br>选一个话题，我们慢慢聊。',ct:['我的情绪为什么这么极端？','为什么我总觉得被抛弃？','吃药真的有用吗？','今天状态不好怎么办？'],cd:['了解躁狂与抑郁的表现','双相如何影响亲密关系','治疗的过程是什么样的','日常小事帮助稳定情绪'],chatTitle:'今天怎么了？',chatDesc:'这里没有评判，你可以说任何感受。',lPH:'继续问我...',cPH:'说说你现在的感受...',back:'← 返回话题',note:'Varel 不是医生，无法替代专业治疗。',hi:'嗨，我是 Varel。\n\n不管你现在是平静、烦躁、还是说不清楚的感觉——都可以跟我说说。我在听。',u:'你'},id:{langBtn:'中文',tabLearn:'Kenali Bipolar',tabChat:'Curhat',topicTitle:'Kenali Kondisimu',topicDesc:'Gangguan bipolar punya banyak sisi.<br>Pilih topik, kita ngobrol pelan-pelan.',ct:['Kenapa emoiku bisa seekstrem ini?','Kenapa aku selalu merasa ditinggalkan?','Apakah minum obat benar-benar membantu?','Gimana kalau hari ini lagi nggak baik?'],cd:['Kenali gejala manik dan depresi','Bagaimana bipolar mempengaruhi hubungan','Seperti apa proses pengobatannya','Hal kecil yang membantu stabilkan mood'],chatTitle:'Gimana hari ini?',chatDesc:'Nggak ada yang dihakimi, cerita aja.',lPH:'Tanya lagi...',cPH:'Ceritain perasaanmu...',back:'← Kembali ke topik',note:'Varel bukan dokter dan tidak menggantikan penanganan profesional.',hi:'Hai, aku Varel.\n\nApapun yang kamu rasakan sekarang — tenang, gelisah, atau nggak bisa dijelaskan — cerita aja. Aku dengerin.',u:'Aku'}};
+let learnH=[],chatH=[],LANG='zh';
+function applyLang(){const s=UI[LANG];document.getElementById('langBtn').textContent=s.langBtn;document.getElementById('tabLearn').textContent=s.tabLearn;document.getElementById('tabChat').textContent=s.tabChat;document.getElementById('topicTitle').textContent=s.topicTitle;document.getElementById('topicDesc').innerHTML=s.topicDesc;document.getElementById('chatTitle').textContent=s.chatTitle;document.getElementById('chatDesc').textContent=s.chatDesc;document.getElementById('learnInput').placeholder=s.lPH;document.getElementById('chatInput').placeholder=s.cPH;document.getElementById('backBtn').textContent=s.back;document.getElementById('noteText').textContent=s.note;for(let i=1;i<=4;i++){document.getElementById('card-t'+i).textContent=s.ct[i-1];document.getElementById('card-d'+i).textContent=s.cd[i-1]}}
+function toggleLang(){LANG=LANG==='zh'?'id':'zh';applyLang();learnH=[];chatH=[];document.getElementById('learnMsgs').innerHTML='';document.getElementById('chatMsgs').innerHTML='';backToTopics();addMsg('chatMsgs','ai',UI[LANG].hi)}
+window.onload=()=>{applyLang();addMsg('chatMsgs','ai',UI[LANG].hi)};
+function showTab(t){document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&t==='learn')||(i===1&&t==='chat')));document.getElementById('learnPanel').classList.toggle('active',t==='learn');document.getElementById('chatPanel').classList.toggle('active',t==='chat')}
+function openTopic(id){learnH=[];document.getElementById('topicList').style.display='none';document.getElementById('learnChat').classList.add('active');document.getElementById('learnMsgs').innerHTML='';learnH.push({role:'user',content:TOPICS[LANG][id]});callAI(SYS_LEARN(LANG),learnH,'learnMsgs','learnSend')}
+function backToTopics(){document.getElementById('topicList').style.display='';document.getElementById('learnChat').classList.remove('active')}
+function sendLearn(){const el=document.getElementById('learnInput');const t=el.value.trim();if(!t)return;el.value='';resize(el);addMsg('learnMsgs','user',t);learnH.push({role:'user',content:t});callAI(SYS_LEARN(LANG),learnH,'learnMsgs','learnSend')}
+function sendChat(){const el=document.getElementById('chatInput');const t=el.value.trim();if(!t)return;el.value='';resize(el);addMsg('chatMsgs','user',t);chatH.push({role:'user',content:t});callAI(SYS_CHAT(LANG),chatH,'chatMsgs','chatSend')}
+async function callAI(sys,h,mid,bid){document.getElementById(bid).disabled=true;const tp=addTyping(mid);const fb=LANG==='id'?'Maaf, coba lagi nanti ya?':'稍后再试试？';try{const r=await fetch('https://router.huggingface.co/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},body:JSON.stringify({model:MODEL,messages:[{role:'system',content:sys},...h],max_tokens:512})});const d=await r.json();tp.remove();const re=d.choices?.[0]?.message?.content||d.error?.message||fb;addMsg(mid,'ai',re);h.push({role:'assistant',content:re})}catch(e){tp.remove();addMsg(mid,'ai',fb)}document.getElementById(bid).disabled=false}
+function addMsg(id,role,text){const c=document.getElementById(id);const d=document.createElement('div');d.className='msg '+role;d.innerHTML='<div class="av '+role+'">'+(role==='ai'?'✦':UI[LANG].u)+'</div><div class="bub">'+text.replace(/\n/g,'<br>')+'</div>';c.appendChild(d);c.scrollTop=c.scrollHeight}
+function addTyping(id){const c=document.getElementById(id);const d=document.createElement('div');d.className='msg ai';d.innerHTML='<div class="av ai">✦</div><div class="bub"><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>';c.appendChild(d);c.scrollTop=c.scrollHeight;return d}
+function onKey(e,m){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();m==='learn'?sendLearn():sendChat()}}
+function resize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
 </script>
-
 </body>
 </html>
