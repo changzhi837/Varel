@@ -91,26 +91,26 @@ textarea::placeholder{color:#4a4860}
         <div class="card" onclick="openTopic('symptoms')">
           <div class="card-bar" style="background:linear-gradient(90deg,#a78bfa,#7dd3fc)"></div>
           <div class="card-icon">🌊</div>
-          <div class="card-title">我的情绪为什么这么极端？</div>
-          <div class="card-desc">了解躁狂与抑郁的表现</div>
+          <div class="card-title" id="card-t1">Kenapa emoiku bisa seekstrem ini?</div>
+          <div class="card-desc" id="card-d1">Kenali gejala manik dan depresi</div>
         </div>
         <div class="card" onclick="openTopic('relationships')">
           <div class="card-bar" style="background:linear-gradient(90deg,#7dd3fc,#f9a8d4)"></div>
           <div class="card-icon">🤝</div>
-          <div class="card-title">为什么我总觉得被抛弃？</div>
-          <div class="card-desc">双相如何影响亲密关系</div>
+          <div class="card-title" id="card-t2">Kenapa aku selalu merasa ditinggalkan?</div>
+          <div class="card-desc" id="card-d2">Bagaimana bipolar mempengaruhi hubungan</div>
         </div>
         <div class="card" onclick="openTopic('treatment')">
           <div class="card-bar" style="background:linear-gradient(90deg,#f9a8d4,#a78bfa)"></div>
           <div class="card-icon">🌱</div>
-          <div class="card-title">吃药真的有用吗？</div>
-          <div class="card-desc">治疗的过程是什么样的</div>
+          <div class="card-title" id="card-t3">Apakah minum obat benar-benar membantu?</div>
+          <div class="card-desc" id="card-d3">Seperti apa proses pengobatannya</div>
         </div>
         <div class="card" onclick="openTopic('daily')">
           <div class="card-bar" style="background:linear-gradient(90deg,#a78bfa,#f9a8d4)"></div>
           <div class="card-icon">☀️</div>
-          <div class="card-title">今天状态不好怎么办？</div>
-          <div class="card-desc">日常小事帮助稳定情绪</div>
+          <div class="card-title" id="card-t4">Gimana kalau hari ini lagi nggak baik?</div>
+          <div class="card-desc" id="card-d4">Hal kecil yang membantu stabilkan mood</div>
         </div>
       </div>
     </div>
@@ -188,6 +188,17 @@ function toggleLang() {
   document.getElementById('learnInput').placeholder = isId ? 'Tanya lagi...' : '继续问我...';
   document.getElementById('chatInput').placeholder = isId ? 'Ceritain perasaanmu...' : '说说你现在的感受...';
   learnH = []; chatH = [];
+  const isId = LANG === 'id';
+  const titles = isId
+    ? ['Kenapa emoiku bisa seekstrem ini?','Kenapa aku selalu merasa ditinggalkan?','Apakah minum obat benar-benar membantu?','Gimana kalau hari ini lagi nggak baik?']
+    : ['我的情绪为什么这么极端？','为什么我总觉得被抛弃？','吃药真的有用吗？','今天状态不好怎么办？'];
+  const descs = isId
+    ? ['Kenali gejala manik dan depresi','Bagaimana bipolar mempengaruhi hubungan','Seperti apa proses pengobatannya','Hal kecil yang membantu stabilkan mood']
+    : ['了解躁狂与抑郁的表现','双相如何影响亲密关系','治疗的过程是什么样的','日常小事帮助稳定情绪'];
+  for(let i=1;i<=4;i++){
+    document.getElementById('card-t'+i).textContent = titles[i-1];
+    document.getElementById('card-d'+i).textContent = descs[i-1];
+  }
 }
 
 window.onload = () => {
