@@ -374,7 +374,7 @@ padding: 0 20px 6px; line-height: 1.6; font-weight: 300;
 </div>
 
 <script>
-let API_KEY = '';
+let API_KEY = 'AIzaSyAcISl2v_ZGigokmN_aTJYLlc_gvX746UU';
 let learnHistory = [];
 let chatHistory = [];
 
@@ -400,8 +400,11 @@ function startApp() {
 }
 
 window.onload = () => {
-  const saved = localStorage.getItem('varel_key');
-  if (saved) { document.getElementById('apiKeyInput').value = saved; }
+  document.getElementById('setupScreen').style.display = 'none';
+  document.getElementById('mainApp').classList.add('active');
+  addMsg('chatMessages', 'ai', '嗨，我是 Varel。
+
+不管你现在是平静、烦躁、还是说不清楚的感觉——都可以跟我说说。我在听。');
 };
 
 function switchTab(tab) {
