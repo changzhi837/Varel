@@ -374,7 +374,7 @@ padding: 0 20px 6px; line-height: 1.6; font-weight: 300;
 </div>
 
 <script>
-let API_KEY = 'AIzaSyAcISl2v_ZGigokmN_aTJYLlc_gvX746UU';
+let API_KEY = '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';
 let learnHistory = [];
 let chatHistory = [];
 
@@ -459,20 +459,24 @@ async function callGemini(mode) {
   const typingEl = addTyping(msgId);
 
   try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt }] },
-          contents: history,
-        })
-      }
-    );
+    const messages = [{ role: 'system', content: systemPrompt }];
+    for (const h of history) {
+      messages.push({ role: h.role === 'model' ? 'assistant' : h.role, content: h.parts[0].text });
+    }
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        messages: messages,
+      })
+    });
     const data = await res.json();
     typingEl.remove();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '我现在有点接收不到，稍后再试试？';
+    const reply = data.choices?.[0]?.message?.content || '我现在有点接收不到，稍后再试试？';
     addMsg(msgId, 'ai', reply);
     history.push({ role: 'model', parts: [{ text: reply }] });
   } catch(e) {
